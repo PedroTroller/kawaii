@@ -64,8 +64,15 @@ final class Bootstrap
         $dic->setParameter(
             'gherkin.i18n',
             function (DIC $dic): array {
-                $i18n = require $dic->getParameter('autoload.directory').'/behat/gherkin/i18n.php';
+                /**
+                 * @var string
+                 */
+                $directory = $dic->getParameter('autoload.directory');
+                $i18n      = include $directory.'/behat/gherkin/i18n.php';
 
+                /**
+                 * @var array<string, array<string, string>>
+                 */
                 return $i18n;
             }
         );
@@ -78,28 +85,22 @@ final class Bootstrap
                  */
                 $i18n = $dic->getParameter('gherkin.i18n');
 
-                return new ArrayKeywords(
-                    $i18n
-                );
+                return new ArrayKeywords($i18n);
             }
         );
 
         $dic->setService(
             Lexer::class,
-            static function (DIC $dic): Lexer {
-                return new Lexer(
-                    $dic->getService(ArrayKeywords::class)
-                );
-            }
+            static fn (DIC $dic): Lexer => new Lexer(
+                $dic->getService(ArrayKeywords::class)
+            )
         );
 
         $dic->setService(
             Parser::class,
-            static function (DIC $dic): Parser {
-                return new Parser(
-                    $dic->getService(Lexer::class)
-                );
-            }
+            static fn (DIC $dic): Parser => new Parser(
+                $dic->getService(Lexer::class)
+            )
         );
 
         $dic->setParameter(
@@ -150,42 +151,34 @@ final class Bootstrap
 
         $dic->setService(
             Background::class,
-            static function (DIC $dic): Background {
-                return new Background(
-                    $dic->getService(Indentation::class),
-                    $dic->getService(Steps::class),
-                );
-            }
+            static fn (DIC $dic): Background => new Background(
+                $dic->getService(Indentation::class),
+                $dic->getService(Steps::class),
+            )
         );
 
         $dic->setService(
             Feature::class,
-            static function (DIC $dic): Feature {
-                return new Feature(
-                    $dic->getService(Background::class),
-                    $dic->getService(Scenarios::class),
-                    $dic->getService(FeatureDescription::class),
-                    $dic->getService(Tags::class),
-                );
-            }
+            static fn (DIC $dic): Feature => new Feature(
+                $dic->getService(Background::class),
+                $dic->getService(Scenarios::class),
+                $dic->getService(FeatureDescription::class),
+                $dic->getService(Tags::class),
+            )
         );
 
         $dic->setService(
             Examples::class,
-            static function (DIC $dic): Examples {
-                return new Examples(
-                    $dic->getService(Indentation::class)
-                );
-            }
+            static fn (DIC $dic): Examples => new Examples(
+                $dic->getService(Indentation::class)
+            )
         );
 
         $dic->setService(
             FeatureDescription::class,
-            static function (DIC $dic): FeatureDescription {
-                return new FeatureDescription(
-                    $dic->getService(Indentation::class)
-                );
-            }
+            static fn (DIC $dic): FeatureDescription => new FeatureDescription(
+                $dic->getService(Indentation::class)
+            )
         );
 
         $dic->setService(
@@ -204,14 +197,12 @@ final class Bootstrap
 
         $dic->setService(
             Scenarios::class,
-            static function (DIC $dic): Scenarios {
-                return new Scenarios(
-                    $dic->getService(Indentation::class),
-                    $dic->getService(Tags::class),
-                    $dic->getService(Steps::class),
-                    $dic->getService(Examples::class),
-                );
-            }
+            static fn (DIC $dic): Scenarios => new Scenarios(
+                $dic->getService(Indentation::class),
+                $dic->getService(Tags::class),
+                $dic->getService(Steps::class),
+                $dic->getService(Examples::class),
+            )
         );
 
         $dic->setService(

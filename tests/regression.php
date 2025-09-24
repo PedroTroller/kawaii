@@ -1,6 +1,8 @@
 #!/usr/bin/env php
 <?php
 
+declare(strict_types=1);
+
 use SebastianBergmann\Diff\Differ;
 
 require dirname(__FILE__, 2).'/vendor/autoload.php';

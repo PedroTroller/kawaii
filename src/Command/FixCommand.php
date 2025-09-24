@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace KawaiiGherkin\Command;
 
 use Behat\Gherkin\Parser;
+use KawaiiGherkin\DIC;
 use KawaiiGherkin\Finder;
 use KawaiiGherkin\Formatter\Feature;
 use Symfony\Component\Console\Input\InputInterface;
@@ -12,17 +13,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class FixCommand extends AbstractCommand
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'fix';
+    public function __construct(private DIC $dic)
+    {
+        parent::__construct('fix', 'Fix gherkin code style');
+    }
 
-    /**
-     * @var string
-     */
-    protected static $defaultDescription = 'Fix gherkin code style';
-
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->dic->setService(InputInterface::class, static fn (): InputInterface => $input);
 
