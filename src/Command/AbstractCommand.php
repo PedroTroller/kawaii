@@ -4,29 +4,21 @@ declare(strict_types=1);
 
 namespace KawaiiGherkin\Command;
 
-use KawaiiGherkin\DIC;
 use Symfony\Component\Console\Command\Command;
 use Symfony\Component\Console\Input\InputArgument;
 use Symfony\Component\Console\Input\InputOption;
 
 abstract class AbstractCommand extends Command
 {
-    public const SUCCESS = 0;
-
-    public const FAILURE = 1;
-
-    protected DIC $dic;
-
-    public function __construct(DIC $dic)
+    public function __construct(string $name, private string $description)
     {
-        $this->dic = $dic;
-
-        parent::__construct();
+        parent::__construct($name);
     }
 
     protected function configure(): void
     {
         $this
+            ->setDescription($this->description)
             ->addArgument(
                 'sources',
                 InputArgument::REQUIRED | InputArgument::IS_ARRAY,

@@ -1,0 +1,7 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Parameter \#1 \$keywords of class Behat\\Gherkin\\Keywords\\ArrayKeywords constructor expects array\<string, array\{feature\: string, background\: string, scenario\: string, scenario_outline\: string, examples\: string, given\: string, when\: string, then\: string, \.\.\.\}\>, array\<string, array\<string, string\>\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: src/DIC/Bootstrap.php

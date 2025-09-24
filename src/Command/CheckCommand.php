@@ -5,6 +5,7 @@ declare(strict_types=1);
 namespace KawaiiGherkin\Command;
 
 use Behat\Gherkin\Parser;
+use KawaiiGherkin\DIC;
 use KawaiiGherkin\Finder;
 use KawaiiGherkin\Formatter\Feature;
 use SebastianBergmann\Diff\Differ;
@@ -14,17 +15,12 @@ use Symfony\Component\Console\Output\OutputInterface;
 
 final class CheckCommand extends AbstractCommand
 {
-    /**
-     * @var string
-     */
-    protected static $defaultName = 'check';
+    public function __construct(private DIC $dic)
+    {
+        parent::__construct('check', 'Find wrong gherkin code styled');
+    }
 
-    /**
-     * @var string
-     */
-    protected static $defaultDescription = 'Find wrong gherkin code styled';
-
-    protected function execute(InputInterface $input, OutputInterface $output)
+    protected function execute(InputInterface $input, OutputInterface $output): int
     {
         $this->dic->setService(InputInterface::class, static fn (): InputInterface => $input);
 

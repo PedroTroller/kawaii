@@ -4,13 +4,15 @@ declare(strict_types=1);
 
 use PedroTroller\CS\Fixer\Fixers;
 use PedroTroller\CS\Fixer\RuleSetFactory;
+use PhpCsFixer\Config;
+use PhpCsFixer\Finder;
 
-return (new PhpCsFixer\Config())
+return (new Config())
     ->setRiskyAllowed(true)
     ->setRules(
         RuleSetFactory::create()
             ->phpCsFixer(true)
-            ->php(8.0, true)
+            ->php(8.3, true)
             ->pedrotroller(true)
             ->enable('align_multiline_comment')
             ->enable('array_indentation')
@@ -30,7 +32,7 @@ return (new PhpCsFixer\Config())
     ->setUsingCache(false)
     ->registerCustomFixers(new Fixers())
     ->setFinder(
-        PhpCsFixer\Finder::create()
+        Finder::create()
             ->in(__DIR__)
             ->append([__DIR__.'/bin/kawaii', __FILE__])
     )

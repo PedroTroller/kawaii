@@ -57,8 +57,8 @@ final class DIC
     /**
      * @template T of object
      *
-     * @param class-string<T> $className
-     * @param callable(DIC $dic): T $callable
+     * @param class-string<T>              $className
+     * @param callable(DIC    $dic):     T $callable
      */
     public function setService(string $className, callable $callable): void
     {

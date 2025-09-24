@@ -21,17 +21,17 @@
   ],
   "homepage": "https://github.com/pedrotroller/kawaii-gherkin",
   "require": {
-    "php": "8.0.* || 8.1.* || 8.2.*",
-    "behat/gherkin": "^4.9",
-    "sebastian/diff": "^4.0",
-    "symfony/console": "5.4.* || 6.*",
-    "symfony/finder": "5.4.* || 6.*"
+    "php": "^8.3",
+    "behat/gherkin": "^4.14",
+    "sebastian/diff": "^7.0",
+    "symfony/console": "^6.4 || ^7.3",
+    "symfony/finder": "^6.4 || ^7.3"
   },
   "require-dev": {
-    "behat/behat": "^3.12",
-    "pedrotroller/php-cs-custom-fixer": "^2.30",
-    "phpstan/phpstan": "^1.9.14",
-    "phpstan/phpstan-symfony": "^1.2.20"
+    "behat/behat": "^3.24",
+    "pedrotroller/php-cs-custom-fixer": "^2.34",
+    "phpstan/phpstan": "^2.1",
+    "phpstan/phpstan-symfony": "^2.0"
   },
   "autoload": {
     "psr-4": {
